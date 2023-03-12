@@ -1,22 +1,22 @@
-package com.appofkhanh.noteapp.ui.Adapter
+package com.appofkhanh.noteapp.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.appofkhanh.noteapp.ui.Model.Notes
+import com.appofkhanh.noteapp.ui.model.Notes
 import com.appofkhanh.noteapp.R
 import com.appofkhanh.noteapp.databinding.ItemNotesBinding
-import com.appofkhanh.noteapp.ui.Fragments.HomeFragmentDirections
+import com.appofkhanh.noteapp.ui.fragments.HomeFragmentDirections
 
-class NotesAdapter(val requireContext: Context, var noteList: List<Notes>) :
+class NotesAdapter(private val noteList: ArrayList<Notes>) :
     RecyclerView.Adapter<NotesAdapter.notesViewHolder>() {
 
     class notesViewHolder(val binding: ItemNotesBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun filteringNotes(newFilteredList: ArrayList<Notes>){
-        noteList = newFilteredList
+    fun filteringNotes(newFilteredList: List<Notes>){
+        noteList.clear()
+        noteList.addAll(newFilteredList)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): notesViewHolder {

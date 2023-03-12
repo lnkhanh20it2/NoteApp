@@ -1,4 +1,4 @@
-package com.appofkhanh.noteapp.ui.Fragments
+package com.appofkhanh.noteapp.ui.fragments
 
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -7,18 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import com.appofkhanh.noteapp.ui.Model.Notes
+import com.appofkhanh.noteapp.ui.model.Notes
 import com.appofkhanh.noteapp.R
-import com.appofkhanh.noteapp.ViewModel.NotesViewModel
+import com.appofkhanh.noteapp.viewModel.NotesViewModel
 import com.appofkhanh.noteapp.databinding.FragmentCreateNotesBinding
 import java.util.Date
 
 class CreateNotesFragment : Fragment() {
     private lateinit var binding: FragmentCreateNotesBinding
-    private var priority : String = "1"
-    private val viewModel : NotesViewModel by viewModels()
+    private var priority: String = "1"
+    private val viewModel: NotesViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,7 +28,7 @@ class CreateNotesFragment : Fragment() {
         binding = FragmentCreateNotesBinding.inflate(layoutInflater, container, false)
 
         binding.btnGreen.setOnClickListener {
-            priority =  "1"
+            priority = "1"
             binding.btnGreen.setImageResource(R.drawable.ic_done)
             binding.btnRed.setImageResource(0)
             binding.btnYellow.setImageResource(0)
@@ -49,13 +50,21 @@ class CreateNotesFragment : Fragment() {
         }
         return binding.root
     }
+
     private fun createNotes(it: View?) {
         val title = binding.edtTitle.text.toString()
         val subTitle = binding.edtSubtitle.text.toString()
         val notes = binding.edtNotes.text.toString()
         val date = Date()
         val notesDate: CharSequence = DateFormat.format("MMMM d, yyyy", date.time)
-        val data = Notes(null,title = title,subTitle = subTitle,notes = notes,date = notesDate.toString(), priority)
+        val data = Notes(
+            null,
+            title = title,
+            subTitle = subTitle,
+            notes = notes,
+            date = notesDate.toString(),
+            priority
+        )
         viewModel.insertNotes(data)
 
         Toast.makeText(requireActivity(), "Create Notes Successfully", Toast.LENGTH_SHORT).show()

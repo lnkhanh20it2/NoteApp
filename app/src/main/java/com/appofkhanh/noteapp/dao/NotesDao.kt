@@ -1,8 +1,8 @@
-package com.appofkhanh.noteapp.Dao
+package com.appofkhanh.noteapp.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.appofkhanh.noteapp.ui.Model.Notes
+import com.appofkhanh.noteapp.ui.model.Notes
 
 @Dao
 interface NotesDao {
